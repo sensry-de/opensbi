@@ -133,6 +133,9 @@ void sbi_timer_event_start(u64 next_event)
 {
 	sbi_pmu_ctr_incr_fw(SBI_PMU_FW_SET_TIMER);
 
+	u64 current = get_ticks();
+	next_event = current + next_event;
+
 	/**
 	 * Update the stimecmp directly if available. This allows
 	 * the older software to leverage sstc extension on newer hardware.
